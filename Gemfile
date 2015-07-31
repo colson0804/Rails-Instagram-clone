@@ -31,6 +31,9 @@ gem 'simple_form'
 # Image upload
 gem 'paperclip', '~> 4.3'
 
+# for user authentication
+gem 'devise', '~> 3.4.0'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
