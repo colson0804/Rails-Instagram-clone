@@ -3,9 +3,7 @@ require 'rails_helper.rb'
 feature 'delete posts' do
   background do
     post = create(:post, caption: 'Abs for days.')
-
     visit '/'
-
     find(:xpath, "//a[contains(@href,'posts/1')]").click
     click_link 'Edit Post'
   end
