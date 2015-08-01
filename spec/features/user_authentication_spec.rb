@@ -25,7 +25,8 @@ feature 'User authentication' do
     fill_in 'Email', with: 'sample@gmail.com'
     fill_in 'Password', with: 'foobar123'
     click_button 'Log in'
+
     click_link 'Logout'
-    expect(page).to have_content 'Signed out successfully.'
+    expect(page).to have_content('You need to sign in or sign up before continuing.')
   end
 end  

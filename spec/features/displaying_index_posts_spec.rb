@@ -1,15 +1,19 @@
 require 'rails_helper.rb'
 
-feature 'display index posts' do
-	scenario 'should view images' do
-		# Create multiple posts using factories.
-		post1 = create(:post, caption: "This is post 1")
-		post2 = create(:post, caption: "This is post 2")
-		# User visits the root route.
-		visit '/'
-		# User can see the comments and images of the posts we’ve created.
-		expect(page).to have_content("This is post 1")
-		expect(page).to have_content("This is post 2")
-		expect(page).to have_css("img[src*='coffee.jpg']")
-	end
-end
+feature 'Can see a list of posts on the index' do  
+  background do
+    post_one = create(:post, caption: "This is post one")
+    post_two = create(:post, caption: "This is the second post")
+    user = create :user
+
+    visit '/'
+    fill_in 'Email', with: user.email
+    fill_in 'Password', with: user.password
+    click_button 'Log in'
+  end
+  scenario 'the index lists all posts' do
+    expect(page).to have_content("This is post one")
+    expect(page).to have_content("This is the second post")
+    expect(page).to have_css("img[src*='coffee']")
+  end
+end  
