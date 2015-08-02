@@ -6,10 +6,7 @@ feature 'Can see a list of posts on the index' do
     post_two = create(:post, caption: "This is the second post")
     user = create :user
 
-    visit '/'
-    fill_in 'Email', with: user.email
-    fill_in 'Password', with: user.password
-    click_button 'Log in'
+    sign_in_with(user)
   end
   scenario 'the index lists all posts' do
     expect(page).to have_content("This is post one")
