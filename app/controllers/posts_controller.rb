@@ -1,5 +1,7 @@
 class PostsController < ApplicationController
 	before_action :authenticate_user!
+	before_action :get_post_params, only: [:show, :edit, :update, :destroy]
+	before_action :owned_post, only: [:edit, :update, :destroy]
 
 	def index
 		@posts = Post.all
@@ -22,19 +24,12 @@ class PostsController < ApplicationController
 	end
 
 	def show
-		@post = Post.find(params[:id])
 	end
 
 	def edit
-		@post = Post.find(params[:id])
-		if current_user != @post.user
-			flash[:error] = "That post doesn't belong to you!"
-			redirect_to root_path
-		end
 	end
 
 	def update
-		@post = Post.find(params[:id])
 		@post.update_attributes(post_params)
 		if @post.save
 			flash[:success] = "Post updated hombre"
@@ -46,7 +41,6 @@ class PostsController < ApplicationController
 	end
 
 	def destroy
-		@post = Post.find(params[:id])
 		@post.destroy
 		flash["success"] = 'Problem solved!  Post deleted.'
 		redirect_to posts_path
@@ -55,5 +49,16 @@ class PostsController < ApplicationController
 	private
 		def post_params
 			params.require(:post).permit(:caption, :image)
+		end
+
+		def get_post_params
+			@post = Post.find(params[:id])
+		end
+
+		def owned_post
+		  unless @post.user.id == current_user.id
+		    flash[:alert] = "That post doesn't belong to you!"
+		    redirect_to root_path
+		  end
 		end
 end
