@@ -27,6 +27,10 @@ class PostsController < ApplicationController
 
 	def edit
 		@post = Post.find(params[:id])
+		if current_user != @post.user
+			flash[:error] = "That post doesn't belong to you!"
+			redirect_to root_path
+		end
 	end
 
 	def update
