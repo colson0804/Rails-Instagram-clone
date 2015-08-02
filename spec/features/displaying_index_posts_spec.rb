@@ -2,9 +2,9 @@ require 'rails_helper.rb'
 
 feature 'Can see a list of posts on the index' do  
   background do
-    post_one = create(:post, caption: "This is post one")
-    post_two = create(:post, caption: "This is the second post")
     user = create :user
+    post_one = create(:post, caption: "This is post one", user_id: user.id)
+    post_two = create(:post, caption: "This is the second post", user_id: user.id)
 
     sign_in_with(user)
   end
