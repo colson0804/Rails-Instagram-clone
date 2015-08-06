@@ -19,12 +19,15 @@ class CommentsController < ApplicationController
 		@comment = @post.comments.find(params[:id])
 
 		if @comment.user_id == current_user.id
-			@comment.destroy
-			flash[:success] = 'Comment deleted :('
+			@comment.delete
+			respond_to do |format|
+		      format.html { redirect_to root_path }
+		      format.js
+		    end
 	  	else
 	  		flash[:error] = 'That doesn\'t belong to you!'
+	  		redirect_to root_path
 	  	end
-	  	redirect_to root_path
 	end
 
 	private

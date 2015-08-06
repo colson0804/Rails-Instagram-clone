@@ -13,7 +13,6 @@ feature 'Deleting comments' do
     visit '/'
     expect(page).to have_content('MyString')
     click_link("delete-1")
-    expect(page).to have_content('Comment deleted :(')
     expect(page).to_not have_content('MyString')
   end
 
@@ -27,7 +26,7 @@ feature 'Deleting comments' do
     visit '/'
     expect(page).to have_content('YourString')
     page.driver.submit :delete, "posts/1/comments/2", {}
-    #expect(page).to have_content("That doesn't belong to you!")
+    expect(page).to have_content("That doesn't belong to you!")
     expect(page).to have_content('YourString')
   end
 end 
