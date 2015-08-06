@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :comment do
     content "MyString"
-user nil
+	user nil
   end
 
 end

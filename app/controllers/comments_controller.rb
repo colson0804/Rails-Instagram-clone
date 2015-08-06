@@ -16,9 +16,13 @@ class CommentsController < ApplicationController
 	def destroy
 		@comment = @post.comments.find(params[:id])
 
-		@comment.destroy
-		flash[:success] = "Comment deleted :("
-  		redirect_to root_path
+		if @comment.user_id == current_user.id
+			@comment.destroy
+			flash[:success] = 'Comment deleted :('
+	  	else
+	  		flash[:error] = 'That doesn\'t belong to you!'
+	  	end
+	  	redirect_to root_path
 	end
 
 	private
