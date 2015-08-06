@@ -1,6 +1,6 @@
 <div class="post-wrapper row">
 	<% if @posts.any? %>
-		<%= @posts.each do |post| %>
+		<% @posts.each do |post| %>
 			<%= render 'layouts/post', post: post %>
 		<% end %>
 	<% end %>

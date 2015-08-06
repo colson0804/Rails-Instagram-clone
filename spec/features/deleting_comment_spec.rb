@@ -1,6 +1,6 @@
 require 'rails_helper.rb'
 
-feature 'Deleting posts' do  
+feature 'Deleting comments' do  
   background do
     user_one = create(:user)
     user_two = create(:user, id: 2, user_name: "user2", email: "user2@gmail.com")
@@ -8,7 +8,7 @@ feature 'Deleting posts' do
     comment = create(:comment, user_id: 2, post_id: post.id)
     sign_in_with user_two
   end
-  scenario 'can delete a post' do
+  scenario 'can delete a comment' do
     visit '/'
     expect(page).to have_content('MyString')
     click_link("delete-1")
